@@ -4,6 +4,9 @@ LABEL maintainer=@joshuacook
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ENV PATH /opt/conda/bin:$PATH
+
 RUN apt-get update --fix-missing && \
   apt-get install -y \
   wget bzip2 ca-certificates \
@@ -21,3 +24,5 @@ RUN apt-get install -y curl grep sed dpkg && \
   dpkg -i tini.deb && \
   rm tini.deb && \
   apt-get clean
+
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
